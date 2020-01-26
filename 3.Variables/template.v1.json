@@ -1,0 +1,75 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+		"appServicePlanSKU": { 
+			"type": "string", 
+			"defaultValue": "F1",
+            "allowedValues": ["F1", "B1", "D1", "S1"],
+            "metadata": {
+                "description": "SKU for App Service Plan"
+            }
+		},
+		"storageSKU": { 
+			"type": "string", 
+			"defaultValue": "Standard_LRS",
+            "allowedValues": ["Standard_LRS", "Standard_ZRS", "Standard_GRS"],
+            "metadata": {
+                "description": "SKU for storage account"
+            }
+		},
+		"location": { 
+			"type": "string", 
+			"defaultValue": "[resourceGroup().location]",
+            "metadata": {
+                "description": "Location of storage account"
+            }
+		},
+		"environment": { 
+			"type": "string",
+            "minLength": 3,
+            "maxLength": 5,
+            "metadata": {
+                "description": "Name of environment"
+            }
+		}
+	},
+    "variables": {},
+    "resources": [
+        {
+            "type":"Microsoft.Storage/storageAccounts",
+            "apiVersion":"2019-04-01",
+            "name":"[concat('techlab',parameters('environment'))]",
+            "location":"[parameters('location')]",
+            "kind":"StorageV2",
+            "sku":{
+                "name":"[parameters('storageSKU')]"
+            }
+        },
+        {
+            "name": "[concat('techlab',parameters('environment'))]",
+            "apiVersion": "2018-02-01",
+            "type": "Microsoft.Web/serverfarms",
+            "location": "[parameters('location')]",
+            "sku": {
+                "name": "[parameters('appServicePlanSKU')]"
+            },
+            "properties": {
+            }
+        },
+        {
+            "name": "[concat('techlab',parameters('environment'))]",
+            "type": "Microsoft.Web/sites",
+            "apiVersion": "2016-08-01",
+            "location": "[parameters('location')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', concat('techlab',parameters('environment')))]"
+            ],
+            "properties": {
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', concat('techlab',parameters('environment')))]"
+            }
+        }
+    ],
+    "outputs": {},
+    "functions": []
+}

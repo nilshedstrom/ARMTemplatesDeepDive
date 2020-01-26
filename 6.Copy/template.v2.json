@@ -1,0 +1,133 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+		"appServicePlanSKU": { 
+			"type": "string", 
+			"defaultValue": "F1",
+            "allowedValues": ["F1", "B1", "D1", "S1"],
+            "metadata": {
+                "description": "SKU for App Service Plan"
+            }
+		},
+		"storageSKU": { 
+			"type": "string", 
+			"defaultValue": "Standard_LRS",
+            "allowedValues": ["Standard_LRS", "Standard_ZRS", "Standard_GRS"],
+            "metadata": {
+                "description": "SKU for storage account"
+            }
+		},
+		"locations": { 
+			"type": "array", 
+			"defaultValue": ["[resourceGroup().location]"],
+            "metadata": {
+                "description": "Location of storage account"
+            }
+		},
+		"environment": { 
+			"type": "string",
+            "minLength": 3,
+            "maxLength": 5,
+            "metadata": {
+                "description": "Name of environment"
+            }
+		}
+	},
+    "variables": {
+		"resourceName": "[concat('techlab',parameters('environment'))]",
+        "copy":[
+                {
+                    /* Creates an array with the names of the resources
+                       in different locations */
+                    "name": "resourceNames",
+                    "count": "[length(parameters('locations'))]",
+                    "input": "[concat(variables('resourceName'), '-', 
+                        parameters('locations')[copyIndex('resourceNames')])]"
+                },
+                {
+                    /* Creates an array with the resources ids of the 
+                       App Service Plans in different locations */
+                    "name": "planResourceIds",
+                    "count": "[length(parameters('locations'))]",
+                    "input": "[resourceId('Microsoft.Web/serverfarms', 
+                    variables('resourceNames')[copyIndex('planResourceIds')])]"
+                },
+                {
+                    /* Creates an array with the resource-ids of the 
+                       App Services in different locations */
+                    "name": "siteResourceIds",
+                    "count": "[length(parameters('locations'))]",
+                    "input": "[resourceId('Microsoft.Web/sites', 
+                    variables('resourceNames')[copyIndex('siteResourceIds')])]"
+                }
+               ]
+	},
+    "resources": [
+        {
+            /* Storage account */
+            "type":"Microsoft.Storage/storageAccounts",
+            "apiVersion":"2019-04-01",
+            "name":"[variables('resourceName')]",
+            "location":"[parameters('locations')[0]]",
+            "kind":"StorageV2",
+            "sku":{
+                "name":"[parameters('storageSKU')]"
+            }
+        },
+        {
+            /* App service plan (Windows) */
+            "name": "[variables('resourceNames')[copyIndex()]]",
+            "apiVersion": "2018-02-01",
+            "type": "Microsoft.Web/serverfarms",
+            "copy":{
+                "name": "appServicePlanCopy",
+                "count": "[length(parameters('locations'))]"
+            },
+            "location": "[parameters('locations')[copyIndex()]]",
+            "sku": {
+                "name": "[parameters('appServicePlanSKU')]"
+            },
+            "properties": {
+            }
+        },
+        {
+            /* App service */
+            "name": "[variables('resourceNames')[copyIndex()]]",
+            "type": "Microsoft.Web/sites",
+            "apiVersion": "2016-08-01",
+            "copy":{
+                "name": "appServiceCopy",
+                "count": "[length(parameters('locations'))]"
+            },
+            "location": "[parameters('locations')[copyIndex()]]",
+            "dependsOn": [
+                "appServicePlanCopy"
+            ],
+            "properties": {
+                "serverFarmId": "[variables('planResourceIds')[copyIndex()]]"
+            },
+            "resources": [
+                {
+                    "type": "config",
+                    "name": "appsettings",
+                    "apiVersion":"2016-08-01",
+                    "properties": {
+                        "TableUri": "[reference(concat('Microsoft.Storage/storageAccounts/', 
+                             variables('resourceName'))).primaryEndpoints.table]" 
+                    },
+                    "dependsOn": [
+                            "[variables('siteResourceIds')[copyIndex()]]"
+                    ]
+                }
+            ]
+        }
+    ],
+    "outputs": {
+        "resourceNames": {
+           "type": "array",
+           "value": "[variables('resourceNames')]"
+        }
+    },
+    "functions": []
+}
