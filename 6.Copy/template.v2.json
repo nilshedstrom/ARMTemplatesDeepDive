@@ -77,13 +77,13 @@
         },
         {
             /* App service plan (Windows) */
-            "name": "[variables('resourceNames')[copyIndex()]]",
             "apiVersion": "2018-02-01",
             "type": "Microsoft.Web/serverfarms",
             "copy":{
                 "name": "appServicePlanCopy",
                 "count": "[length(parameters('locations'))]"
             },
+            "name": "[variables('resourceNames')[copyIndex()]]",
             "location": "[parameters('locations')[copyIndex()]]",
             "sku": {
                 "name": "[parameters('appServicePlanSKU')]"
@@ -93,13 +93,13 @@
         },
         {
             /* App service */
-            "name": "[variables('resourceNames')[copyIndex()]]",
             "type": "Microsoft.Web/sites",
             "apiVersion": "2016-08-01",
             "copy":{
                 "name": "appServiceCopy",
                 "count": "[length(parameters('locations'))]"
             },
+            "name": "[variables('resourceNames')[copyIndex()]]",
             "location": "[parameters('locations')[copyIndex()]]",
             "dependsOn": [
                 "appServicePlanCopy"

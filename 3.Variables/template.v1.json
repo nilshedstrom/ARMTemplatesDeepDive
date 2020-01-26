@@ -47,9 +47,9 @@
             }
         },
         {
-            "name": "[concat('techlab',parameters('environment'))]",
-            "apiVersion": "2018-02-01",
             "type": "Microsoft.Web/serverfarms",
+            "apiVersion": "2018-02-01",
+            "name": "[concat('techlab',parameters('environment'))]",
             "location": "[parameters('location')]",
             "sku": {
                 "name": "[parameters('appServicePlanSKU')]"
