@@ -15,20 +15,19 @@ Gives you the ability to extract selected value to parameters or variables and t
 * [Highlight](https://marketplace.visualstudio.com/items?itemName=fabiospampinato.vscode-highlight)
 In the different templates in this repository I have added comments with `<NewStuff>` where the new stuff (since the last chapter) begins and `</NewStuff>` where the new stuff ends.
 If you want to make the new stuff **bold** and almost remove the `<NewStuff>` tags you should install this plugin with the following settings in settings.json
+
 ```json
 "highlight.regexes": {
-    "(/\\* <NewStuff> \\*/)(.*?)(/\\* </NewStuff> \\*/)": { 
-        "regexFlags": "gms", 
-        "filterLanguageRegex": "arm-template|json|jsonc", 
-        "decorations": [ 
+    "(/\\* <NewStuff> \\*/)(.*?)(/\\* </NewStuff> \\*/)": {
+        "regexFlags": "gms",
+        "filterLanguageRegex": "arm-template|json|jsonc",
+        "decorations": [
             { "opacity": "0.05" },
-            { 
+            {
             "overviewRulerColor": "#00ff00",
             "fontWeight": "bolder"
             },
-            { 
-            "opacity": "0.05"
-            },
+            { "opacity": "0.05" },
         ]
         }
 },
