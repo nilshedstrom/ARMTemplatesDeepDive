@@ -32,7 +32,7 @@
             "metadata": {
                 "description": "Name of environment"
             }
-		},
+		},/* <NewStuff> */
         "createNewAppServicePlan": {
            "type": "bool",
            "defaultValue": true,
@@ -44,26 +44,28 @@
            "type": "string",
            "defaultValue": "",
            "metadata": {
-                "description": "Name of the existing App Service Plan (if createNewAppServicePlan=false)"
+                "description": "Name of the existing App Service Plan 
+                                (if createNewAppServicePlan=false)"
             }
         },
         "appServicePlanRG": {
            "type": "string",
            "defaultValue": "",
            "metadata": {
-                "description": "Resource group for the existing App Service Plan (if createNewAppServicePlan=false)"
+                "description": "Resource group for the existing App Service Plan 
+                                (if createNewAppServicePlan=false)"
             }
-        }
+        }/* </NewStuff> */
 	},
     "variables": {
-		"resourceName": "[concat('techlab',parameters('environment'))]",
+		"resourceName": "[concat('techlab',parameters('environment'))]",/* <NewStuff> */
         "createNewAppServicePlan": "[bool(parameters('createNewAppServicePlan'))]",
         "computedAppServicePlanName": "[if(variables('createNewAppServicePlan'), 
             variables('resourceName'), 
             parameters('appServicePlanName'))]",
         "computedAppServicePlanRG": "[if(variables('createNewAppServicePlan'), 
             resourceGroup().name, 
-            parameters('appServicePlanRG'))]"
+            parameters('appServicePlanRG'))]"/* </NewStuff> */
 	},
     "resources": [
         {
@@ -80,9 +82,9 @@
         {
             /* App service plan (Windows) */
             "apiVersion": "2018-02-01",
-            "type": "Microsoft.Web/serverfarms",
+            "type": "Microsoft.Web/serverfarms",/* <NewStuff> */
             "name": "[variables('computedAppServicePlanName')]",
-            "condition": "[variables('createNewAppServicePlan')]",
+            "condition": "[variables('createNewAppServicePlan')]",/* </NewStuff> */
             "location": "[parameters('location')]",
             "sku": {
                 "name": "[parameters('appServicePlanSKU')]"
@@ -96,15 +98,15 @@
             "apiVersion": "2016-08-01",
             "name": "[variables('resourceName')]",
             "location": "[parameters('location')]",
-            "dependsOn": [
+            "dependsOn": [/* <NewStuff> */
                 "[resourceId('Microsoft.Web/serverfarms', 
-                 variables('computedAppServicePlanName'))]"
+                 variables('computedAppServicePlanName'))]"/* </NewStuff> */
             ],
-            "properties": {
+            "properties": {/* <NewStuff> */
                 "serverFarmId": "[resourceId(
                     variables('computedAppServicePlanRG'), 
                     'Microsoft.Web/serverfarms', 
-                    variables('computedAppServicePlanName'))]"
+                    variables('computedAppServicePlanName'))]"/* </NewStuff> */
             },
             "resources": [
                 {
@@ -112,11 +114,13 @@
                     "name": "appsettings",
                     "apiVersion":"2016-08-01",
                     "properties": {
-                        "TableUri": "[reference(concat('Microsoft.Storage/storageAccounts/', 
+                        "TableUri": "[reference(
+                            concat('Microsoft.Storage/storageAccounts/', 
                             variables('resourceName'))).primaryEndpoints.table]"
                     },
                     "dependsOn": [
-                            "[resourceId('Microsoft.Web/sites', variables('resourceName'))]"
+                            "[resourceId('Microsoft.Web/sites', 
+                                variables('resourceName'))]"
                     ]
                 }
             ]
@@ -125,8 +129,9 @@
     "outputs": {
         "storage": {
            "type": "object",
-           "value": "[reference(concat('Microsoft.Storage/storageAccounts/', 
-                            variables('resourceName')))]"
+           "value": "[reference(concat(
+                        'Microsoft.Storage/storageAccounts/', 
+                        variables('resourceName')))]"
         }
     },
     "functions": []

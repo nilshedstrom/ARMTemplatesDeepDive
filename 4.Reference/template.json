@@ -36,7 +36,8 @@
 	},
     "variables": {
 		"resourceName": "[concat('techlab',parameters('environment'))]",
-        "serverFarmResourceId": "[resourceId('Microsoft.Web/serverfarms', variables('resourceName'))]"
+        "serverFarmResourceId": "[resourceId('Microsoft.Web/serverfarms', 
+            variables('resourceName'))]"
 	},
     "resources": [
         {
@@ -73,29 +74,32 @@
             ],
             "properties": {
                 "serverFarmId": "[variables('serverFarmResourceId')]"
-            },
+            },/* <NewStuff> */
             "resources": [
                 {
                     "type": "config",
                     "name": "appsettings",
                     "apiVersion":"2016-08-01",
                     "properties": {
-                        "TableUri": "[reference(concat('Microsoft.Storage/storageAccounts/', 
+                        "TableUri": "[reference(
+                            concat('Microsoft.Storage/storageAccounts/', 
                             variables('resourceName'))).primaryEndpoints.table]"
                     },
                     "dependsOn": [
-                            "[resourceId('Microsoft.Web/sites', variables('resourceName'))]"
+                            "[resourceId('Microsoft.Web/sites', 
+                                variables('resourceName'))]"
                     ]
                 }
-            ]
+            ]/* </NewStuff> */
         }
     ],
-    "outputs": {
+    "outputs": {/* <NewStuff> */
         "storage": {
            "type": "object",
-           "value": "[reference(concat('Microsoft.Storage/storageAccounts/', 
-                            variables('resourceName')))]"
-        }
+           "value": "[reference(
+                        concat('Microsoft.Storage/storageAccounts/', 
+                        variables('resourceName')))]"
+        }/* </NewStuff> */
     },
     "functions": []
 }

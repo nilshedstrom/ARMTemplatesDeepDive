@@ -17,10 +17,10 @@
             "metadata": {
                 "description": "SKU for storage account"
             }
-		},
-		"locations": { 
+		}, /* <NewStuff> */
+		"locations": {
 			"type": "array", 
-			"defaultValue": ["[resourceGroup().location]"],
+			"defaultValue": ["[resourceGroup().location]"],/* </NewStuff> */
             "metadata": {
                 "description": "Location of storage account"
             }
@@ -35,7 +35,7 @@
 		}
 	},
     "variables": {
-		"resourceName": "[concat('techlab',parameters('environment'))]",
+		"resourceName": "[concat('techlab',parameters('environment'))]",/* <NewStuff> */
         "copy":[
                 {
                     /* Creates an array with the names of the resources
@@ -61,15 +61,15 @@
                     "input": "[resourceId('Microsoft.Web/sites', 
                     variables('resourceNames')[copyIndex('siteResourceIds')])]"
                 }
-               ]
+               ]/* </NewStuff> */
 	},
     "resources": [
         {
             /* Storage account */
             "type":"Microsoft.Storage/storageAccounts",
             "apiVersion":"2019-04-01",
-            "name":"[variables('resourceName')]",
-            "location":"[parameters('locations')[0]]",
+            "name":"[variables('resourceName')]",/* <NewStuff> */
+            "location":"[parameters('locations')[0]]",/* </NewStuff> */
             "kind":"StorageV2",
             "sku":{
                 "name":"[parameters('storageSKU')]"
@@ -78,13 +78,13 @@
         {
             /* App service plan (Windows) */
             "apiVersion": "2018-02-01",
-            "type": "Microsoft.Web/serverfarms",
+            "type": "Microsoft.Web/serverfarms",/* <NewStuff> */
             "copy":{
                 "name": "appServicePlanCopy",
                 "count": "[length(parameters('locations'))]"
             },
             "name": "[variables('resourceNames')[copyIndex()]]",
-            "location": "[parameters('locations')[copyIndex()]]",
+            "location": "[parameters('locations')[copyIndex()]]",/* </NewStuff> */
             "sku": {
                 "name": "[parameters('appServicePlanSKU')]"
             },
@@ -94,18 +94,18 @@
         {
             /* App service */
             "type": "Microsoft.Web/sites",
-            "apiVersion": "2016-08-01",
+            "apiVersion": "2016-08-01",/* <NewStuff> */
             "copy":{
                 "name": "appServiceCopy",
                 "count": "[length(parameters('locations'))]"
             },
             "name": "[variables('resourceNames')[copyIndex()]]",
-            "location": "[parameters('locations')[copyIndex()]]",
-            "dependsOn": [
-                "appServicePlanCopy"
+            "location": "[parameters('locations')[copyIndex()]]",/* </NewStuff> */
+            "dependsOn": [/* <NewStuff> */
+                "appServicePlanCopy"/* </NewStuff> */
             ],
-            "properties": {
-                "serverFarmId": "[variables('planResourceIds')[copyIndex()]]"
+            "properties": {/* <NewStuff> */
+                "serverFarmId": "[variables('planResourceIds')[copyIndex()]]"/* </NewStuff> */
             },
             "resources": [
                 {
@@ -116,18 +116,18 @@
                         "TableUri": "[reference(concat('Microsoft.Storage/storageAccounts/', 
                              variables('resourceName'))).primaryEndpoints.table]" 
                     },
-                    "dependsOn": [
-                            "[variables('siteResourceIds')[copyIndex()]]"
+                    "dependsOn": [/* <NewStuff> */
+                            "[variables('siteResourceIds')[copyIndex()]]"/* </NewStuff> */
                     ]
                 }
             ]
         }
     ],
-    "outputs": {
+    "outputs": {/* <NewStuff> */
         "resourceNames": {
            "type": "array",
            "value": "[variables('resourceNames')]"
-        }
+        }/* </NewStuff> */
     },
     "functions": []
 }

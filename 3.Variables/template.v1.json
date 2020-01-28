@@ -1,7 +1,7 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {
+    "parameters": {/* <NewStuff> */
 		"appServicePlanSKU": { 
 			"type": "string", 
 			"defaultValue": "F1",
@@ -9,7 +9,7 @@
             "metadata": {
                 "description": "SKU for App Service Plan"
             }
-		},
+		},/* </NewStuff> */
 		"storageSKU": { 
 			"type": "string", 
 			"defaultValue": "Standard_LRS",
@@ -24,7 +24,7 @@
             "metadata": {
                 "description": "Location of storage account"
             }
-		},
+		},/* <NewStuff> */
 		"environment": { 
 			"type": "string",
             "minLength": 3,
@@ -32,20 +32,20 @@
             "metadata": {
                 "description": "Name of environment"
             }
-		}
+		}/* </NewStuff> */
 	},
     "variables": {},
     "resources": [
         {
             "type":"Microsoft.Storage/storageAccounts",
-            "apiVersion":"2019-04-01",
-            "name":"[concat('techlab',parameters('environment'))]",
+            "apiVersion":"2019-04-01",/* <NewStuff> */
+            "name":"[concat('techlab',parameters('environment'))]",/* </NewStuff> */
             "location":"[parameters('location')]",
             "kind":"StorageV2",
             "sku":{
                 "name":"[parameters('storageSKU')]"
             }
-        },
+        },/* <NewStuff> */
         {
             "type": "Microsoft.Web/serverfarms",
             "apiVersion": "2018-02-01",
@@ -63,12 +63,14 @@
             "apiVersion": "2016-08-01",
             "location": "[parameters('location')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Web/serverfarms', concat('techlab',parameters('environment')))]"
+                "[resourceId('Microsoft.Web/serverfarms', 
+                concat('techlab',parameters('environment')))]"
             ],
             "properties": {
-                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', concat('techlab',parameters('environment')))]"
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', 
+                concat('techlab',parameters('environment')))]"
             }
-        }
+        }/* </NewStuff> */
     ],
     "outputs": {},
     "functions": []

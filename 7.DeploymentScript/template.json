@@ -36,10 +36,10 @@
 	},
     "variables": {
 		"resourceName": "[concat('techlab',parameters('environment'))]",
-        "serverFarmResourceId": "[resourceId('Microsoft.Web/serverfarms', variables('resourceName'))]",
+        "serverFarmResourceId": "[resourceId('Microsoft.Web/serverfarms', variables('resourceName'))]",/* <NewStuff> */
         "roleAssignmentId": "[guid(uniqueString(resourceGroup().name, variables('resourceName')))]",
         "contributorRoleId": "b24988ac-6180-42a0-ab88-20f7382dd24c",
-        "tableName": "Users"
+        "tableName": "Users"/* </NewStuff> */
 	},
     "resources": [
         {
@@ -91,7 +91,7 @@
                     ]
                 }
             ]
-        },
+        },/* <NewStuff> */
         {
             "type": "Microsoft.ManagedIdentity/userAssignedIdentities",
             "name": "[variables('resourceName')]",
@@ -106,8 +106,10 @@
                 "[variables('resourceName')]"
                 ],
                 "properties": {
-                    "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions/', variables('contributorRoleId'))]",
-                    "principalId": "[reference(concat('Microsoft.ManagedIdentity/userAssignedIdentities/', variables('resourceName')), '2018-11-30').principalId]"
+                    "roleDefinitionId": "[resourceId('Microsoft.Authorization/roleDefinitions/', 
+                        variables('contributorRoleId'))]",
+                    "principalId": "[reference(concat('Microsoft.ManagedIdentity/userAssignedIdentities/', 
+                        variables('resourceName')), '2018-11-30').principalId]"
                 }
         },
         {
@@ -121,7 +123,8 @@
             "identity": {
                 "type": "userAssigned",
                 "userAssignedIdentities": {
-                    "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities/', variables('resourceName'))]": {
+                    "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities/', 
+                    variables('resourceName'))]": {
                     }
                 }
             },
@@ -154,14 +157,14 @@
                 "timeout": "PT30M",
                 "cleanupPreference": "OnSuccess",
                 "retentionInterval": "P1D"
-            }
+            }/* </NewStuff> */
         }
     ],
-    "outputs": {
+    "outputs": {/* <NewStuff> */
         "result": {
             "value": "[reference('createTableScript').outputs.uri]",
             "type": "string"
-        }
+        }/* </NewStuff> */
     },
     "functions": []
 }

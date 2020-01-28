@@ -1,7 +1,7 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {
+    "parameters": {/* <NewStuff> */
 		"appServicePlanSKU": { 
 			"type": "string", 
 			"defaultValue": "F1",
@@ -9,7 +9,7 @@
             "metadata": {
                 "description": "SKU for App Service Plan"
             }
-		},
+		},/* </NewStuff> */
 		"storageSKU": { 
 			"type": "string", 
 			"defaultValue": "Standard_LRS",
@@ -24,7 +24,7 @@
             "metadata": {
                 "description": "Location of storage account"
             }
-		},
+		},/* <NewStuff> */
 		"environment": { 
 			"type": "string",
             "minLength": 3,
@@ -32,24 +32,25 @@
             "metadata": {
                 "description": "Name of environment"
             }
-		}
+		}/* </NewStuff> */
 	},
-    "variables": {
+    "variables": {/* <NewStuff> */
 		"resourceName": "[concat('techlab',parameters('environment'))]",
-        "serverFarmResourceId": "[resourceId('Microsoft.Web/serverfarms', variables('resourceName'))]"
+        "serverFarmResourceId": "[resourceId('Microsoft.Web/serverfarms', 
+            variables('resourceName'))]"/* </NewStuff> */
 	},
     "resources": [
         {
             /* Storage account */
             "type":"Microsoft.Storage/storageAccounts",
-            "apiVersion":"2019-04-01",
-            "name":"[variables('resourceName')]",
+            "apiVersion":"2019-04-01",/* <NewStuff> */
+            "name":"[variables('resourceName')]",/* </NewStuff> */
             "location":"[parameters('location')]",
             "kind":"StorageV2",
             "sku":{
                 "name":"[parameters('storageSKU')]"
             }
-        },
+        },/* <NewStuff> */
         {
             /* App service plan (Windows) */
             "name": "[variables('resourceName')]",
@@ -74,7 +75,7 @@
             "properties": {
                 "serverFarmId": "[variables('serverFarmResourceId')]"
             }
-        }
+        }/* </NewStuff> */
     ],
     "outputs": {},
     "functions": []
