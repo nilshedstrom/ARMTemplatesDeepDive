@@ -1,4 +1,4 @@
-#7.DeploymentScript
+# 7.DeploymentScript
 Explains how to use Deployment Scripts to run custom Powershell scripts when you deploy your ARM templates. This can be useful when you want to create resources that are not possible with normal ARM Templates, such as: 
 * Storage Tables
 * Azure Active Directory Applications
