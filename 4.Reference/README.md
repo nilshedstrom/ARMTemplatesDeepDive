@@ -6,5 +6,3 @@ Azure REST API Reference](https://docs.microsoft.com/en-us/rest/api/azure/)
 ## Useful links
 * [list* functions documentation](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-functions-resource#list)
 * [reference function documentation](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-functions-resource#reference)
-
-[Deploy to Azure](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnilshedstrom%2FARMTemplatesDeepDive%2Fmaster%2F4.Reference%2Ftemplate.json)

@@ -11,5 +11,3 @@ Deployment scripts are currently in preview so you must [sign up to the preview]
 * [Use deployment scripts in templates (Preview)](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/deployment-script-template)
 * [Tutorial: Use deployment scripts to create a self-signed certificate (Preview)](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-tutorial-deployment-script)
 
-[Deploy to Azure](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fnilshedstrom%2FARMTemplatesDeepDive%2Fmaster%2F7.DeploymentScript%2Ftemplate.json)
-
