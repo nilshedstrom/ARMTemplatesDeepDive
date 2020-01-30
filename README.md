@@ -25,7 +25,7 @@ Explains how you can sometimes skip the creation of a resource by using the cond
 Explains how to use the copy feature to create multiple resources with similar configuration in the same resource group. This can be useful when you want to create multiple App Services in different locations in the same resource group.
 
 ### [7.DeploymentScript](https://github.com/nilshedstrom/ARMTemplatesDeepDive/tree/master/7.DeploymentScript)
-Explains how to use Deployment Scripts to run custom Powershell scripts when you deploy your ARM templates. This can be useful when you want to create resources that are not possible with normal ARM Tempaltes, such as: 
+Explains how to use Deployment Scripts to run custom Powershell scripts when you deploy your ARM templates. This can be useful when you want to create resources that are not possible with normal ARM Templates, such as: 
 * Storage Tables
 * Azure Active Directory Applications
 * Chatbots
@@ -43,7 +43,7 @@ As with normal code you might want to run Unit tests on your ARM templates. Ther
 [Test ARM Templates using Pester & Azure DevOps](https://medium.com/charot/test-arm-templates-using-pester-azure-devops-837b5006c30c)
 [Testing ARM Templates with Pester](https://platform.deloitte.com.au/articles/testing-arm-templates-with-pester)
 ### Linked templates
-If your ARM templates gets too big or you need to modularize your templates you might might consider splitting your template into several smaller ones and have one call the other ones. The process is described in  [Tutorial: Create linked Azure Resource Manager templates](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-tutorial-create-linked-templates). Keep in mind that your deployments will get more complicated.
+If your ARM templates gets too big or you need to modularize your templates you might might consider splitting your template into several smaller ones and have one call the other ones. The process is described in  [Tutorial: Create linked Azure Resource Manager templates](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-tutorial-create-linked-templates) and [Using linked and nested templates when deploying Azure resources](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/linked-templates). Keep in mind that your deployments will get more complicated.
 
 ## Links
 - [Azure Quickstart Templates](https://azure.microsoft.com/en-us/resources/templates/)
