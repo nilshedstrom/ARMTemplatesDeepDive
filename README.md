@@ -45,9 +45,14 @@ As with normal code you might want to run Unit tests on your ARM templates. Ther
 ### Linked templates
 If your ARM templates gets too big or you need to modularize your templates you might might consider splitting your template into several smaller ones and have one call the other ones. The process is described in  [Tutorial: Create linked Azure Resource Manager templates](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-tutorial-create-linked-templates) and [Using linked and nested templates when deploying Azure resources](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/linked-templates). Keep in mind that your deployments will get more complicated.
 
-## Links
+## Sources of documentation for ARM templates
+- [Export template](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/export-template-portal)
+  Contains information on how to get ARM templates from the Azure Portal for new an existing resources.
 - [Azure Quickstart Templates](https://azure.microsoft.com/en-us/resources/templates/)
+  839 templates that show you deploy popular resources to Azure using ARM templates.
 - [Resource Manager template reference documentation](https://docs.microsoft.com/en-us/azure/templates/)
+  Contains the documentation for what you can write in your ARM templates. 
+  Search for the name of the resource ("storage accounts") or resource type ("Microsoft.Storage/storageAccounts") to find the [documentation](https://docs.microsoft.com/en-us/azure/templates/microsoft.storage/2019-04-01/storageaccounts).
 
 ## Recommended plugins for Visual Studio Code
 * [Azure Resource Manager (ARM) Tools](https://marketplace.visualstudio.com/items?itemName=msazurermtools.azurerm-vscode-tools)
