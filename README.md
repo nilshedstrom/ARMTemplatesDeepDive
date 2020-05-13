@@ -1,5 +1,5 @@
 # ARMTemplatesDeepDive
-Examples and documentation on how to write good ARM templates. 
+Examples and documentation on how to write good ARM templates. You can find the video of my presentation at Swetugg 2020 on [Youtube](https://youtu.be/enC-NgvgXJM)
 ## Introduction
 Azure Resource Manager Templates (ARM Templates) are a way to define a set of resources in Azure. When you deploy the ARM template the Azure Resource Manager will create the resources in your ARM template.
 If you are new to ARM templates and want to learn more the [tutorials](http://aka.ms/justlearnarm) at [Azure Resource Manager template documentation](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/) is a really good place to start.
