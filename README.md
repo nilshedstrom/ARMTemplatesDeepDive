@@ -38,12 +38,12 @@ The concept of user-defined functions is the same as in most programming languag
 Check this [article](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-user-defined-functions) to learn how to create your own user-defined functions. Pay attention to the limitations because you cannot use them in all scenarios.
 ### Unit tests
 As with normal code you might want to run Unit tests on your ARM templates. There are two types of Unit tests:
-* Static file analysis that can help you verify that your templates are following a standard. [Static Analysis for ARM Templates](https://aka.ms/arm-ttk)
+* Static file analysis that can help you verify that your templates are following a standard. [Static Analysis for ARM Templates](https://aka.ms/arm-ttk). If you want to run these test in Azure Devops you can install this [extension](https://marketplace.visualstudio.com/items?itemName=Sam-Cogan.ARMTTKExtension).
 * Unit tests that "deploys" the template, looks at the "deployed" resources and checks if they are what you expected. 
 [Test ARM Templates using Pester & Azure DevOps](https://medium.com/charot/test-arm-templates-using-pester-azure-devops-837b5006c30c)
 [Testing ARM Templates with Pester](https://platform.deloitte.com.au/articles/testing-arm-templates-with-pester)
 ### Linked templates
-If your ARM templates gets too big or you need to modularize your templates you might might consider splitting your template into several smaller ones and have one call the other ones. The process is described in  [Tutorial: Create linked Azure Resource Manager templates](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-tutorial-create-linked-templates) and [Using linked and nested templates when deploying Azure resources](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/linked-templates). Keep in mind that your deployments will get more complicated.
+If your ARM templates gets too big or you need to modularize your templates you might consider splitting your template into several smaller ones and have one call the other ones. The process is described in  [Tutorial: Create linked Azure Resource Manager templates](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/template-tutorial-create-linked-templates) and [Using linked and nested templates when deploying Azure resources](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/linked-templates). Keep in mind that your deployments will get more complicated.
 
 ## Sources of documentation for ARM templates
 - [Export template](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/export-template-portal)
@@ -57,10 +57,10 @@ If your ARM templates gets too big or you need to modularize your templates you 
 ## Recommended plugins for Visual Studio Code
 * [Azure Resource Manager (ARM) Tools](https://marketplace.visualstudio.com/items?itemName=msazurermtools.azurerm-vscode-tools)
 A must have when you are working with ARM Templates in Visual Studio code. Gives you code completion, validation, colorization and much more.
-* [ARM Template Viewer](https://marketplace.visualstudio.com/items?itemName=msazurermtools.azurerm-vscode-tools)
+* [ARM Template Viewer](https://marketplace.visualstudio.com/items?itemName=bencoleman.armview)
 Gives you a graphical preview of your ARM template.
-* [ARM Params Generator](https://marketplace.visualstudio.com/items?itemName=msazurermtools.azurerm-vscode-tools)
-Gives you the ability to extract selected value to parameters or variables and the ability to create a parameters file from for the current ARM template.
+* [ARM Params Generator](https://marketplace.visualstudio.com/items?itemName=wilfriedwoivre.arm-params-generator)
+Gives you the ability to extract selected value to parameters or variables and the ability to create a parameters file from for the current ARM template. This functionallity might be included (and improved) in the ARM Resource Manager Tools in a near future.
 * [Highlight](https://marketplace.visualstudio.com/items?itemName=fabiospampinato.vscode-highlight)
 In the different templates in this repository I have added comments with `<NewStuff>` where the new stuff (since the last chapter) begins and `</NewStuff>` where the new stuff ends.
 If you want to make the new stuff **bold** and almost remove the `<NewStuff>` tags you should install this plugin with the following settings in settings.json

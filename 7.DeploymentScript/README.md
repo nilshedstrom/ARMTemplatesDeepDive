@@ -5,7 +5,7 @@ Explains how to use Deployment Scripts to run custom Powershell scripts when you
 * Chatbots
 * Certificates in KeyVault
 
-Deployment scripts are currently in preview so you must [sign up to the preview](https://aka.ms/armtemplatepreviews) before you can use them.
+Deployment scripts are recently moved from private preview to public preview so everyone can use them.
 
 ## Useful links
 * [Use deployment scripts in templates (Preview)](https://docs.microsoft.com/en-us/azure/azure-resource-manager/templates/deployment-script-template)
